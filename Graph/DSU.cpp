@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// TC of both union & find op: O(4*alpha)~O(4)
+// SC : O(n)
+
 class DSU
 {
 public:
