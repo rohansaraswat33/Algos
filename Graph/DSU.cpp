@@ -13,31 +13,29 @@ public:
         parent.resize(n, 0);
         rank.resize(n, 0);
         for (int i = 0; i < n; i++)
-        {
             parent[i] = i;
-        }
     }
-    int find(int x)
+    int find(int u)
     {
-        if (parent[x] == x)
-            return x;
-        return parent[x] = find(parent[x]);
+        if (parent[u] == u)
+            return u;
+        return parent[u] = find(parent[u]);
     }
-    bool unionXY(int x, int y)
+    bool unionxy(int u, int v)
     {
-        int xPar = find(x);
-        int yPar = find(y);
-        if (xPar != yPar)
+        int parU = parent[u];
+        int parV = parent[v];
+        if (parU != parV)
         {
-            if (rank[xPar] < rank[yPar])
+            if (rank[parU] == rank[parV])
+                rank[parU]++;
+            if (rank[parU] > rank[parV])
             {
-                parent[xPar] = yPar;
-                rank[xPar]++;
+                parent[v] = parent[u];
             }
             else
             {
-                parent[yPar] = xPar;
-                rank[yPar]++;
+                parent[u] = parent[v];
             }
             return true;
         }
