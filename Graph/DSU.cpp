@@ -23,19 +23,19 @@ public:
     }
     bool unionxy(int u, int v)
     {
-        int parU = parent[u];
-        int parV = parent[v];
+        int parU = find(u);
+        int parV = find(v);
         if (parU != parV)
         {
             if (rank[parU] == rank[parV])
                 rank[parU]++;
-            if (rank[parU] > rank[parV])
+            if (rank[parU] < rank[parV])
             {
-                parent[v] = parent[u];
+                parent[parU] = parV;
             }
             else
             {
-                parent[u] = parent[v];
+                parent[parV] = parU;
             }
             return true;
         }
