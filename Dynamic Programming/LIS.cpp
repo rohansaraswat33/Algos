@@ -1,4 +1,4 @@
-// TC O(N)
+// TC O(N^2)
 // SC O(N)
 
 int lengthOfLIS(vector<int> &nums)
