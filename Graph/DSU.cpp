@@ -8,47 +8,37 @@ class UnionFind
 {
 public:
     vector<int> parent;
-    vector<int> size;
-    int maxSize;
-
+    vector<int> rank;
     UnionFind(int n)
     {
         parent.resize(n);
-        size.resize(n, 1);
-        maxSize = 1;
+        rank.resize(n, 1);
         for (int i = 0; i < n; i++)
-        {
             parent[i] = i;
-        }
     }
-
-    int find(int x)
+    int findPar(int u)
     {
-        // Finds the root of x
-        if (x != parent[x])
-        {
-            parent[x] = find(parent[x]);
-        }
-        return parent[x];
+        if (parent[u] = u)
+            return u;
+        return parent[u] = findPar(parent[u]);
     }
-
-    bool unite(int x, int y)
+    bool unify(int u, int v)
     {
-        // Connects x and y
-        int rootX = find(x);
-        int rootY = find(y);
-        if (rootX != rootY)
+        int parU = findPar(u);
+        int parV = findPar(v);
+        if (parU == parV)
+            return false;
+        if (rank[parU] == rank[parV])
+            rank[parU]++;
+        if (rank[parU] > rank[parV])
         {
-            if (size[rootX] < size[rootY])
-            {
-                swap(rootX, rootY);
-            }
-            parent[rootY] = rootX;
-            size[rootX] += size[rootY];
-            maxSize = max(maxSize, size[rootX]);
-            return true;
+            parent[parV] = parU;
         }
-        return false;
+        else if (rank[parU] < rank[parV])
+        {
+            parent[parU] = parV;
+        }
+        return true;
     }
 };
 
